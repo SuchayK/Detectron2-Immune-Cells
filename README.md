@@ -57,4 +57,3 @@ AP metrics for the validation split.
 ## Related
 
 - **TRIMS** — results summary, figures, and the ASN Kidney Week 2025 poster *(publishing soon)*
-- [ImageTiling](https://github.com/SuchayK/ImageTiling) — tiling preprocessing for large microscopy images
