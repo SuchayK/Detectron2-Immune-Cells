@@ -60,4 +60,5 @@ validation split.
 
 ## Related
 
-- **TRIMS** — results summary, figures, and the ASN Kidney Week 2025 poster *(publishing soon)*
+- **TRIMS** — results summary, figures, and the ASN Kidney Week 2025 poster. Not yet public
+  while the lab's publication is in progress — available on request.
