@@ -17,12 +17,12 @@ related work was presented at **ASN Kidney Week 2025**.
 |---|---|
 | **Model** | Mask R-CNN, ResNet-50 FPN backbone (`COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x`) |
 | **Init** | COCO-pretrained weights from the Detectron2 model zoo, fine-tuned on the cell dataset |
-| **Data** | COCO-format instance annotations (`json_annotation_train.json` / `_val.json`) registered via `register_coco_instances` |
-| **Task** | Single-class instance segmentation — separating touching and overlapping cells, which is where box-only detectors fail |
+| **Data** | COCO-format instance annotations (`json_annotation_train.json` / `_val.json`) registered via `register_coco_instances`. The ROI head's class count is read back from the registered metadata, so the head always matches the annotations. |
+| **Task** | Instance segmentation — separating touching and overlapping cells, which is where box-only detectors fail |
 | **Training** | 1000 iterations · base LR 2.5e-4 · 2 images/batch · 128 ROIs per image |
-| **Inference** | Score threshold 0.7 |
-| **Evaluation** | `COCOEvaluator` on the held-out validation split (COCO AP / AP50 / AP75) |
-| **Environment** | Google Colab (GPU runtime) — hence the `google.colab.patches` import |
+| **Inference** | Score threshold 0.7 for the qualitative overlay |
+| **Evaluation** | `COCOEvaluator` on the held-out validation split (COCO AP / AP50 / AP75), at score threshold 0.05 — COCO AP integrates precision across the full recall range, so evaluating at the 0.7 display threshold would truncate the PR curve and understate AP |
+| **Environment** | GPU runtime. Runs anywhere; the inline Colab preview is used only if `google.colab` is importable, otherwise the overlay is written to `output/prediction.png` |
 
 Instance segmentation was chosen over semantic segmentation because the downstream
 question is *how many* cells and *where each one is*, not just which pixels are cell
@@ -44,15 +44,19 @@ cells/
   val/    images + json_annotation_val.json
 ```
 
-Paths are currently hardcoded to Colab's `/content/cells/...`; point them at your own
-data directory to run elsewhere. Then:
+Then point it at your data directory:
 
 ```bash
-python main.py
+python main.py --data-root /path/to/cells
 ```
 
-Training writes checkpoints to `./output/`, and the final `COCOEvaluator` pass prints
-AP metrics for the validation split.
+`--data-root` defaults to Colab's `/content/cells`. Training hyperparameters are also
+flags (`--max-iter`, `--base-lr`, `--ims-per-batch`, `--roi-batch-size`); the defaults
+are the values in the table above.
+
+Training writes checkpoints to `./output/`, saves a prediction overlay to
+`output/prediction.png`, and the final `COCOEvaluator` pass prints AP metrics for the
+validation split.
 
 ## Related
 

@@ -1,0 +1,6 @@
+# Detectron2 must be installed separately -- it builds against your CUDA/torch pair:
+#   python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
+torch
+torchvision
+opencv-python
+numpy
