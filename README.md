@@ -11,7 +11,7 @@ Presented at **ASN Kidney Week 2025**; manuscript in progress for the *Journal o
 > **Scope of this repo.** This is the model training and evaluation script only.
 > The biopsy dataset, trained weights, and full quantitative results belong to the lab and
 > are not published here. See **[TRIMS-results](https://github.com/SuchayK/TRIMS-results)** for
-> the method write-up, or reach me directly: suchay.kommisetty@gmail.com
+> the method write-up, or reach me directly: suchayk@utexas.edu
 
 ## Why lupus nephritis
 
